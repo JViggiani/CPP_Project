@@ -34,6 +34,23 @@
       <Platform>x64</Platform>
     </ProjectConfiguration>
   </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="client.cpp" />
+    <ClCompile Include="connectionhandler.cpp" />
+    <ClCompile Include="order.cpp" />
+    <ClCompile Include="order.t.cpp" />
+    <ClCompile Include="orderbook.cpp" />
+    <ClCompile Include="orderbook.t.cpp" />
+    <ClCompile Include="server.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="connectionhandler.h" />
+    <ClInclude Include="order.h" />
+    <ClInclude Include="orderbook.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Makefile" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{24510319-393a-4cfb-8743-adc0804839f5}</ProjectGuid>
     <Keyword>Linux</Keyword>
@@ -74,22 +91,6 @@
   <ImportGroup Label="Shared" />
   <ImportGroup Label="PropertySheets" />
   <PropertyGroup Label="UserMacros" />
-  <ItemGroup>
-    <ClCompile Include="client.cpp" />
-    <ClCompile Include="connectionhandler.cpp" />
-    <ClCompile Include="order.cpp" />
-    <ClCompile Include="orderbook.cpp" />
-    <ClCompile Include="orderbook.t.cpp" />
-    <ClCompile Include="server.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="connectionhandler.h" />
-    <ClInclude Include="order.h" />
-    <ClInclude Include="orderbook.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Makefile" />
-  </ItemGroup>
   <ItemDefinitionGroup />
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets" />

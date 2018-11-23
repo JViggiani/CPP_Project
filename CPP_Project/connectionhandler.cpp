@@ -2,6 +2,7 @@
 #include <iostream>
 #include <sstream>
 #include "order.h"
+#include "orderbook.h"
 
 void ConnectionHandler::queueMessage( const char* buffer, size_t len ) {
 	std::cout << "queueMessage called";
@@ -13,6 +14,8 @@ void ConnectionHandler::queueMessage( const char* buffer, size_t len ) {
 
 void ConnectionHandler::processMessages() {
 	size_t howMany = 0;
+	int recievedTime = 0;
+	OrderBook* orderBook = new OrderBook;
 	std::cout << "processMessages called\n" << std::endl;
 	while ( !quitReceived_ ) {
 		{
@@ -22,8 +25,8 @@ void ConnectionHandler::processMessages() {
 				std::this_thread::sleep_for(std::chrono::milliseconds(100));
 			} else {
 				std::cout << "got a message, so far we have " << howMany << " orders\n";
-				const std::string message = queue_.front();
-				if ( "QUIT" == message.substr(0, 4) ) {
+				const std::string message = queue_.front();	//does this return the right value? Should this return the item at the back instead?
+				if ( "QUIT" == message.substr(0, 4) ) {		//TASK make this FIX compliant
 					quitReceived_ = true;
 					std::cout << "QUIT was received\n";
 					queue_.pop_front();
@@ -38,13 +41,15 @@ void ConnectionHandler::processMessages() {
 					std::stringstream ss( remainder );
 					Order order;
 					ss >> order;
+					order.setRecievedTime(recievedTime);
+					orderBook->addOrder(order);
 					std::streampos tellg = ss.tellg();
 					std::cout << "tellg says size of message " << tellg << "\n";
 					queue_.pop_front();
 					//ss.ignore( ss.tellg() );
-					if (tellg == -1) {
+					if (tellg == -1) {	//-1 is some kind of error
 						std::ios::iostate ios = ss.rdstate();
-						if ( ss.eof() ) {
+						if ( ss.eof() ) {	//eof is end of file
 							std::cout << "we reached end of file\n";
 							/*std::string newmessage;
 							if(queue_.empty()){
@@ -80,6 +85,7 @@ void ConnectionHandler::processMessages() {
 		std::this_thread::sleep_for(std::chrono::milliseconds(100));
 	}
 	std::cout << " leaving processMessages\n";
+	delete orderBook;
 }
 
 void ConnectionHandler::start( ) {

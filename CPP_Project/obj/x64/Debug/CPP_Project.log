@@ -1,0 +1,25 @@
+﻿  Validating sources
+  Copying sources remotely to 'lndev'
+  Validating architecture
+  Starting remote build
+  Compiling sources:
+  client.cpp
+C:\Users\delegate\Desktop\CPP Training\CPP_Project\CPP_Project\client.cpp(11,36): warning : conversion to ‘float’ alters ‘double’ constant value [-Wconversion]
+C:\Users\delegate\Desktop\CPP Training\CPP_Project\CPP_Project\client.cpp(11,36): warning :  float benchmarkPrices[]{ 1.23,2.76 }; //TODO change all floats to doubles
+C:\Users\delegate\Desktop\CPP Training\CPP_Project\CPP_Project\client.cpp(11,36): warning :                                     ^
+C:\Users\delegate\Desktop\CPP Training\CPP_Project\CPP_Project\client.cpp(11,36): warning : conversion to ‘float’ alters ‘double’ constant value [-Wconversion]
+  connectionhandler.cpp
+C:\Users\delegate\Desktop\CPP Training\CPP_Project\CPP_Project\connectionhandler.cpp(46,25): warning : unused variable ‘ios’ [-Wunused-variable]
+  order.cpp
+  order.t.cpp
+C:\Users\delegate\Desktop\CPP Training\CPP_Project\CPP_Project\order.t.cpp(1,25): error : gtest/gtest.h: No such file or directory
+C:\Users\delegate\Desktop\CPP Training\CPP_Project\CPP_Project\order.t.cpp(1,25): error :  #include <gtest/gtest.h>
+C:\Users\delegate\Desktop\CPP Training\CPP_Project\CPP_Project\order.t.cpp(1,25): error :                          ^
+C:\Users\delegate\Desktop\CPP Training\CPP_Project\CPP_Project\order.t.cpp(1,25): error : compilation terminated.
+  orderbook.cpp
+  orderbook.t.cpp
+C:\Users\delegate\Desktop\CPP Training\CPP_Project\CPP_Project\orderbook.t.cpp(1,25): error : gtest/gtest.h: No such file or directory
+C:\Users\delegate\Desktop\CPP Training\CPP_Project\CPP_Project\orderbook.t.cpp(1,25): error :  #include <gtest/gtest.h>
+C:\Users\delegate\Desktop\CPP Training\CPP_Project\CPP_Project\orderbook.t.cpp(1,25): error :                          ^
+C:\Users\delegate\Desktop\CPP Training\CPP_Project\CPP_Project\orderbook.t.cpp(1,25): error : compilation terminated.
+  server.cpp

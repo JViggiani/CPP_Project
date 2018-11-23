@@ -5,6 +5,7 @@
 #include <cstdlib>
 using boost::asio::ip::tcp;
 
+std::string clientid;
 int orderId = 0;
 std::string instruments[]{ "VOD.L","HSBA.L" };
 size_t sizes[]{ 1763,2024 };
@@ -15,12 +16,13 @@ void sendNewOrder(tcp::socket& socket) {
 	int instIndex = orderId % 2;
 	Order newOrder( 
 		{ 
-			instruments[instIndex], Order::Buy, sizes[instIndex], benchmarkPrices[instIndex] 
+			clientid, orderId, instruments[instIndex], Order::Buy, sizes[instIndex], benchmarkPrices[instIndex] 
 		}
 	); //TODO make the numbers random - or better make it test values which are recreatable
+	newOrder.setClientId(clientid);
 	std::cout << "Sending order " << orderId++ << " " << newOrder.toString() << "\n";
 	//TASK change the protocol to include the order id
-	//TASK change the protocol to FIX
+	//TASK change the protocol to FIX - this is a text based protocol! Be aware of architectural differences between Linux and Windows.. text is universal
 	boost::asio::write(socket, boost::asio::buffer("NEW_ORDER" + newOrder.serialise()), ignored_error);
 }
 
@@ -36,7 +38,7 @@ int main(int argc, char* argv[]) {
 		tcp::resolver resolver(io_service);
 		std::string port(argv[2]);
 		tcp::resolver::query query(argv[1], port);
-		std::string clientid(argv[3]);
+		clientid = argv[3];
 		tcp::resolver::iterator endpoint_iterator = resolver.resolve(query);
 
 		tcp::socket socket(io_service);
@@ -47,7 +49,7 @@ int main(int argc, char* argv[]) {
 			std::string message = "HELLO_I_AM " + clientid;
 			boost::system::error_code ignored_error; //TASK don't ignore errors - this is meant to be a reference
 			std::cout << "Logging in\n";
-			boost::asio::write(socket, boost::asio::buffer(message), ignored_error);	//all the write functions require an error code reference
+			boost::asio::write(socket, boost::asio::buffer(message), ignored_error);	//all the write functions require an error code reference.. this is actually writing the buffer data containing thr message to the socket 
 		}
 		std::cout << "sleep 5\n";
 		sleep(5);

@@ -52,7 +52,7 @@ int main() {
 		tcp::acceptor acceptor(io_service, tcp::endpoint(tcp::v4(), 3000));
 		int clientNum = 0;
 		std::vector<std::thread>connectionHandlerThreads;
-		for (;;) {
+		for (;;) {	//TASK make it do an exponential retry loop
 			tcp::socket sock(io_service);
 			acceptor.accept(sock);
 			std::cout << "Client " << ++clientNum << " connected " << sock.local_endpoint() << " " << sock.remote_endpoint() << "\n";
